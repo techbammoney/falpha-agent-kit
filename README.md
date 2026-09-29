@@ -117,8 +117,8 @@ See [examples/prompts.md](examples/prompts.md).
 
 ## Registry
 
-fAlpha is listed in the official MCP Registry as `ai.falpha/mcp`. `server.json` is the entry's
-source.
+fAlpha is listed in the official MCP Registry as `ai.falpha/mcp` (`server.json` is the entry's
+source) and on [Smithery](https://smithery.ai/servers/falpha/mcp).
 
 ## License
 
