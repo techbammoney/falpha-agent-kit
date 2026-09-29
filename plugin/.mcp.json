@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "falpha": {
+      "type": "http",
+      "url": "https://agent.falpha.ai/mcp"
+    }
+  }
+}

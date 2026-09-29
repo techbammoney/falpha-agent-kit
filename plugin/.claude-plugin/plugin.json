@@ -1,0 +1,19 @@
+{
+  "name": "falpha",
+  "displayName": "fAlpha",
+  "version": "1.0.0",
+  "description": "Research US stocks with fAlpha's explainable model signals: a ticker's reading and drivers, side-by-side comparisons, sector screens, and what moved a signal. Read-only; model output, not investment advice.",
+  "author": {
+    "name": "fAlpha.ai",
+    "url": "https://falpha.ai"
+  },
+  "homepage": "https://falpha.ai/mcp",
+  "keywords": [
+    "finance",
+    "equities",
+    "signals",
+    "research",
+    "mcp"
+  ],
+  "license": "MIT"
+}
