@@ -45,28 +45,26 @@ each client are at https://falpha.ai/mcp#connect-token.
 <!-- tools:start -->
 17 read-only tools, as listed by fAlpha version 2026.09.23.
 
-| Tool | What it returns |
-|---|---|
-| `falpha_signal_desk_card` | Signal card |
-| `falpha_signal_desk_compare` | Compare two signals |
-| `falpha_signal_desk_history` | Signal on a past date |
-| `falpha_signal_desk_performance` | Signal performance over a range |
-| `falpha_signal_desk_flips` | Signal direction flips |
-| `falpha_signal_desk_curve` | Signal term structure |
-| `falpha_screener_desk` | Screen the covered universe |
-| `falpha_screener_desk_coverage` | Coverage check |
-| `falpha_sentiment_desk` | News sentiment |
-| `falpha_sentiment_desk_trend` | News sentiment trend |
-| `falpha_analyst_desk` | Analyst coverage |
-| `falpha_research_librarian` | Define a fAlpha term |
-| `falpha_filings_scout` | SEC filings |
-| `falpha_filings_scout_facts` | SEC XBRL company facts |
-| `falpha_macro_desk` | Macro backdrop (FRED) |
-| `falpha_fundamentals_desk` | Company profile and ratios (FMP) |
-| `falpha_open_in_web` | Open fAlpha on the web |
+- **falpha_signal_desk_card**: Signal card. The model's current reading on one ticker: the equity indicator (EI, signed: positive leans long, negative leans short), the signal's risk-adjusted track record, and the driver carrying the reading, with the date the signal is for.
+- **falpha_signal_desk_compare**: Compare two signals. Two tickers side by side on the current signal, with which of the two carries the stronger reading.
+- **falpha_signal_desk_history**: Signal on a past date. The signal and its drivers as they stood on a past date, read point-in-time: only data available on that date is used.
+- **falpha_signal_desk_performance**: Signal performance over a range. How a ticker performed over a date range and how the signal would have performed if followed, measured against a benchmark.
+- **falpha_signal_desk_flips**: Signal direction flips. The dates the signal changed direction (long to short or back) over a lookback window, the drivers at each change, and the current direction.
+- **falpha_signal_desk_curve**: Signal term structure. The model's term structure for a ticker: the equity indicator's direction from one day out to six months, the curve's shape (strengthening, weakening or flipping) and whether the sign changes across horizons.
+- **falpha_screener_desk**: Screen the covered universe. Ranks fAlpha's covered universe (about 5,000 US equities) by the current signal, either the equity indicator or the signal's realized Sharpe ratio, filtered by direction, sector or a minimum Sharpe ratio.
+- **falpha_screener_desk_coverage**: Coverage check. Whether a ticker is in fAlpha's covered universe, with its sector and latest signal date, or a page through the universe.
+- **falpha_sentiment_desk**: News sentiment. fAlpha's daily news sentiment score for a ticker, with the articles it was computed from and the date of the reading.
+- **falpha_sentiment_desk_trend**: News sentiment trend. How news sentiment has moved over a window: the current reading, the change since the window opened, the direction, the high/low band and the daily series.
+- **falpha_analyst_desk**: Analyst coverage. Sell-side coverage for a ticker: recent price-target calls with source links, an accuracy-weighted consensus lean, and each analyst's historical hit rate, including their accuracy when agreeing and when disagreeing with the fAlpha model.
+- **falpha_research_librarian**: Define a fAlpha term. The fAlpha definition of a term the desks return: EI (equity indicator), VICE, drivers, Sharpe, Sortino, percent_positive_pnl, signal flip, term structure.
+- **falpha_filings_scout**: SEC filings. Recent SEC filings for a ticker from SEC EDGAR (10-K, 10-Q and 8-K by default), newest first, each with its filing date and document URL.
+- **falpha_filings_scout_facts**: SEC XBRL company facts. Reported fundamentals from SEC XBRL filings: revenue, net income, diluted EPS, total assets, total liabilities and stockholders' equity, for the latest reported quarters and fiscal years, each with its period end and filing date.
+- **falpha_macro_desk**: Macro backdrop (FRED). The US macro backdrop from FRED: the fed funds rate (DFF), CPI (CPIAUCSL), unemployment (UNRATE), the 10y-2y spread (T10Y2Y) and the 10-year yield (DGS10).
+- **falpha_fundamentals_desk**: Company profile and ratios (FMP). Company profile and trailing-twelve-month ratios from FMP: sector, market cap, P/E, margins, debt/equity.
+- **falpha_open_in_web**: Open fAlpha on the web. Links to the fAlpha website and the user's account page, where plan, usage and billing are shown.
 <!-- tools:end -->
 
-The table is generated from the live server's public catalog
+The list is generated from the live server's public catalog
 (`https://agent.falpha.ai/mcp/catalog`) by `scripts/sync_tools.py`.
 
 ## Claude plugin

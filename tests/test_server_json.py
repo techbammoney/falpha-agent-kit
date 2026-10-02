@@ -50,13 +50,19 @@ def test_description_makes_no_performance_or_advice_claim():
         assert word not in text
 
 
-def test_readme_table_splice_replaces_only_the_marked_block():
+def test_readme_list_splice_replaces_only_the_marked_block():
     catalog = {"server": {"name": "fAlpha", "version": "2026.09.23"},
                "tools": [{"name": "falpha_x", "title": "X"}, {"name": "falpha_y", "annotations": {"title": "Y"}}]}
     table = sync_tools.render_table(catalog)
     assert "2 read-only tools, as listed by fAlpha version 2026.09.23." in table
-    assert "| `falpha_x` | X |" in table and "| `falpha_y` | Y |" in table
+    assert "- **falpha_x**: X" in table and "- **falpha_y**: Y" in table
     text = "intro\n<!-- tools:start -->\nold\n<!-- tools:end -->\noutro\n"
     out = sync_tools.splice(text, table)
     assert out.startswith("intro\n<!-- tools:start -->\n2 read-only") and out.endswith("<!-- tools:end -->\noutro\n")
     assert "old" not in out
+
+
+def test_tool_list_line_takes_the_first_sentence_without_the_desk_prefix():
+    catalog = {"tools": [{"name": "falpha_x", "title": "Signal card",
+                          "description": "[Signal Desk] The model's reading on one ticker. For questions like 'x'."}]}
+    assert "- **falpha_x**: Signal card. The model's reading on one ticker." in sync_tools.render_table(catalog)

@@ -1,4 +1,4 @@
-"""Rewrite the README's tool table from the live server's public catalog, so it cannot drift.
+"""Rewrite the README's tool list from the live server's public catalog, so it cannot drift.
 
     python3 scripts/sync_tools.py            # rewrite README.md in place
     python3 scripts/sync_tools.py --check    # exit 1 when README.md is out of date
@@ -7,6 +7,7 @@ Standard library only. Reads https://agent.falpha.ai/mcp/catalog (public, read-o
 """
 
 import json
+import re
 import pathlib
 import sys
 import urllib.request
@@ -21,19 +22,27 @@ def fetch_catalog(url=CATALOG_URL):
         return json.load(resp)
 
 
+def first_sentence(description):
+    """The description's first sentence, without the "[Desk name] " prefix the server adds."""
+    text = re.sub(r"^\[[^\]]*\]\s*", "", (description or "").strip())
+    match = re.match(r"(.+?[.!?])(\s|$)", text)
+    return (match.group(1) if match else text).strip()
+
+
 def render_table(catalog):
+    """A plain list, one tool per line: directory crawlers (mcp.so) read lists, not tables."""
     server = catalog.get("server") or {}
     tools = catalog.get("tools") or []
     lines = [
         f"{len(tools)} read-only tools, as listed by {server.get('name', 'the server')} "
         f"version {server.get('version', 'unknown')}.",
         "",
-        "| Tool | What it returns |",
-        "|---|---|",
     ]
     for tool in tools:
         title = tool.get("title") or (tool.get("annotations") or {}).get("title") or ""
-        lines.append(f"| `{tool['name']}` | {title} |")
+        sentence = first_sentence(tool.get("description"))
+        detail = f"{title}. {sentence}" if title and sentence else (title or sentence)
+        lines.append(f"- **{tool['name']}**: {detail}".rstrip())
     return "\n".join(lines)
 
 
@@ -51,12 +60,12 @@ def main(argv):
     updated = splice(current, table)
     if "--check" in argv:
         if updated != current:
-            print("README.md tool table is out of date; run scripts/sync_tools.py")
+            print("README.md tool list is out of date; run scripts/sync_tools.py")
             return 1
-        print("README.md tool table matches the live catalog")
+        print("README.md tool list matches the live catalog")
         return 0
     README.write_text(updated)
-    print("README.md tool table updated")
+    print("README.md tool list updated")
     return 0
 
 
