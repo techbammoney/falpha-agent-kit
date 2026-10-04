@@ -8,8 +8,8 @@ description: Screen fAlpha's covered US stocks by the current model signal, opti
 1. Call `falpha_screener_desk` with the user's sector, direction (`long`, `short` or `any`),
    ranking (`ei` for signal strength, `sharpe` for realized quality), horizon, regime and
    `top_k`.
-2. Read the result's `universe` field and say which set was ranked. On trial and
-   pay-as-you-go plans it is only the tickers the plan covers today, not the whole universe.
+2. Read the result's `universe` field and say which set was ranked. On some accounts it is
+   only the tickers that account covers today, not the whole universe.
 3. Show the rows with ticker, direction, EI, the ranking statistic and date. Offer
    `falpha_signal_desk_card` for any row the user wants to look at.
 

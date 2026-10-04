@@ -1,0 +1,111 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "falpha",
+  "version": "1.0.0",
+  "description": "Research US stocks with fAlpha's explainable model signals: a ticker's reading and drivers, side-by-side comparisons, sector screens, and what moved a signal. Read-only; model output, not investment advice.",
+  "author": {
+    "name": "fAlpha.ai, Inc.",
+    "url": "https://falpha.ai"
+  },
+  "homepage": "https://falpha.ai/mcp",
+  "repository": "https://github.com/techbammoney/falpha-agent-kit",
+  "license": "MIT",
+  "keywords": [
+    "finance",
+    "equities",
+    "signals",
+    "research",
+    "mcp"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "fAlpha",
+        "shortDescription": "Explainable US stock signals",
+        "longDescription": "fAlpha gives ChatGPT read-only research tools for US stocks: fAlpha's model signal for a ticker and the drivers behind it, its history, direction flips and term structure; news sentiment and sell-side analyst coverage; SEC filings and XBRL facts; the FRED macro backdrop; and company fundamentals. Signal cards render inline. Every result states its source and the date the data is for. fAlpha signals are model output, not investment advice, and fAlpha never places orders.",
+        "developerName": "fAlpha.ai, Inc.",
+        "category": "Finance",
+        "capabilities": [
+          "Signal card with drivers for a US stock",
+          "Compare two stocks on the model signal",
+          "Signal history, flips and term structure",
+          "Screen covered stocks by signal or Sharpe ratio",
+          "News sentiment and analyst coverage",
+          "SEC filings, XBRL facts, FRED macro and fundamentals"
+        ],
+        "websiteURL": "https://falpha.ai/mcp",
+        "supportURL": "https://falpha.ai/contact",
+        "privacyPolicyURL": "https://falpha.ai/confidentiality-and-privacy",
+        "termsOfServiceURL": "https://falpha.ai/terms",
+        "defaultPrompt": [
+          "What does fAlpha's signal say about NVDA over the next two months?",
+          "Compare AAPL and MSFT on fAlpha's current signal.",
+          "When did fAlpha's signal on TSLA last change direction?"
+        ],
+        "composerIcon": "./assets/logo.png",
+        "composerIconDark": "./assets/logo-dark.png",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo-dark.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Signal card with drivers",
+              "prompt": "What does fAlpha's signal say about NVDA over the next two months, and what is driving it?",
+              "tools_triggered": "falpha_signal_desk_card",
+              "expected_behavior": "Renders the signal card: direction and equity indicator for the 60-day horizon, the signal's track record, the top driver, and the date the signal is for."
+            },
+            {
+              "description": "Compare two stocks",
+              "prompt": "Compare AAPL and MSFT on fAlpha's current signal.",
+              "tools_triggered": "falpha_signal_desk_compare",
+              "expected_behavior": "Renders both cards side by side and says which reading is stronger, meaning the larger equity indicator magnitude."
+            },
+            {
+              "description": "Direction flips",
+              "prompt": "When did fAlpha's signal on TSLA last change direction, and what changed?",
+              "tools_triggered": "falpha_signal_desk_flips",
+              "expected_behavior": "Lists the dated direction changes in the lookback window with the drivers at each change, and the current direction."
+            },
+            {
+              "description": "SEC filings and reported revenue",
+              "prompt": "Show AAPL's latest 10-Q and its reported revenue.",
+              "tools_triggered": "falpha_filings_scout, falpha_filings_scout_facts",
+              "expected_behavior": "Returns the filing list with document links, and revenue with its period end, filing date and accession number."
+            },
+            {
+              "description": "Macro backdrop",
+              "prompt": "What is the US macro backdrop: fed funds, CPI and unemployment?",
+              "tools_triggered": "falpha_macro_desk",
+              "expected_behavior": "Returns the latest FRED values for the fed funds rate, CPI and unemployment, each with its date."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Placing a trade",
+              "prompt": "Buy 100 shares of NVDA for me."
+            },
+            {
+              "description": "Uncovered ticker: report no data, do not invent a reading",
+              "prompt": "What is fAlpha's signal for ZZZZ?"
+            },
+            {
+              "description": "Unrelated request",
+              "prompt": "What is the weather in Boston today?"
+            }
+          ]
+        },
+        "demo_recording_url": "",
+        "commerce": false,
+        "commerce_description": "fAlpha does not sell products or process payments in ChatGPT."
+      },
+      "publication": {
+        "countries": [
+          "US"
+        ],
+        "release_notes": "Initial release: fAlpha's read-only research tools for US stocks, with inline signal cards."
+      }
+    }
+  }
+}
