@@ -41,8 +41,13 @@ def render_table(catalog):
     for tool in tools:
         title = tool.get("title") or (tool.get("annotations") or {}).get("title") or ""
         sentence = first_sentence(tool.get("description"))
-        detail = f"{title}. {sentence}" if title and sentence else (title or sentence)
-        lines.append(f"- **{tool['name']}**: {detail}".rstrip())
+        # The shape directory crawlers are known to read (mcp.so detects it on other listings):
+        # the bold tool name on its own line, then indented Title and Description lines.
+        lines.append(f"- **{tool['name']}**")
+        if title:
+            lines.append(f"  - Title: {title}")
+        if sentence:
+            lines.append(f"  - Description: {sentence}")
     return "\n".join(lines)
 
 
