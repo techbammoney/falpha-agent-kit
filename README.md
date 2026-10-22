@@ -109,8 +109,8 @@ names, screen a sector, and explain a move in the reading. Try it locally with
 
 ## ChatGPT plugin
 
-[openai-plugin/](openai-plugin) holds the ChatGPT plugin manifest, MCP config and icons. It ships
-the same four skills as the Claude plugin. `scripts/build-openai-plugin.sh` writes the upload
+[codex-plugin/](codex-plugin) holds the ChatGPT plugin manifest (`.codex-plugin/plugin.json`), MCP config (`.mcp.json`) and icons. It ships
+the same four skills as the Claude plugin. `scripts/build-codex-plugin.sh` writes the upload
 ZIP to `dist/`.
 
 ## Recipes

@@ -17,36 +17,38 @@
     "research",
     "mcp"
   ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "fAlpha",
+    "shortDescription": "Explainable US stock signals",
+    "longDescription": "fAlpha gives ChatGPT read-only research tools for US stocks: fAlpha's model signal for a ticker and the drivers behind it, its history, direction flips and term structure; news sentiment and sell-side analyst coverage; SEC filings and XBRL facts; the FRED macro backdrop; and company fundamentals. Signal cards render inline. Every result states its source and the date the data is for. fAlpha signals are model output, not investment advice, and fAlpha never places orders.",
+    "developerName": "fAlpha.ai, Inc.",
+    "category": "Finance",
+    "capabilities": [
+      "Signal card with drivers for a US stock",
+      "Compare two stocks on the model signal",
+      "Signal history, flips and term structure",
+      "Screen covered stocks by signal or Sharpe ratio",
+      "News sentiment and analyst coverage",
+      "SEC filings, XBRL facts, FRED macro and fundamentals"
+    ],
+    "websiteURL": "https://falpha.ai/mcp",
+    "supportURL": "https://falpha.ai/contact",
+    "privacyPolicyURL": "https://falpha.ai/confidentiality-and-privacy",
+    "termsOfServiceURL": "https://falpha.ai/terms",
+    "defaultPrompt": [
+      "What does fAlpha's signal say about NVDA over the next two months?",
+      "Compare AAPL and MSFT on fAlpha's current signal.",
+      "When did fAlpha's signal on TSLA last change direction?"
+    ],
+    "composerIcon": "./assets/logo.png",
+    "composerIconDark": "./assets/logo-dark.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo-dark.png"
+  },
   "extensions": {
     "com.openai": {
-      "interface": {
-        "displayName": "fAlpha",
-        "shortDescription": "Explainable US stock signals",
-        "longDescription": "fAlpha gives ChatGPT read-only research tools for US stocks: fAlpha's model signal for a ticker and the drivers behind it, its history, direction flips and term structure; news sentiment and sell-side analyst coverage; SEC filings and XBRL facts; the FRED macro backdrop; and company fundamentals. Signal cards render inline. Every result states its source and the date the data is for. fAlpha signals are model output, not investment advice, and fAlpha never places orders.",
-        "developerName": "fAlpha.ai, Inc.",
-        "category": "Finance",
-        "capabilities": [
-          "Signal card with drivers for a US stock",
-          "Compare two stocks on the model signal",
-          "Signal history, flips and term structure",
-          "Screen covered stocks by signal or Sharpe ratio",
-          "News sentiment and analyst coverage",
-          "SEC filings, XBRL facts, FRED macro and fundamentals"
-        ],
-        "websiteURL": "https://falpha.ai/mcp",
-        "supportURL": "https://falpha.ai/contact",
-        "privacyPolicyURL": "https://falpha.ai/confidentiality-and-privacy",
-        "termsOfServiceURL": "https://falpha.ai/terms",
-        "defaultPrompt": [
-          "What does fAlpha's signal say about NVDA over the next two months?",
-          "Compare AAPL and MSFT on fAlpha's current signal.",
-          "When did fAlpha's signal on TSLA last change direction?"
-        ],
-        "composerIcon": "./assets/logo.png",
-        "composerIconDark": "./assets/logo-dark.png",
-        "logo": "./assets/logo.png",
-        "logoDark": "./assets/logo-dark.png"
-      },
       "review": {
         "test_cases": {
           "positive": [

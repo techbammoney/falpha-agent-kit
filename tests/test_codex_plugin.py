@@ -1,14 +1,14 @@
-"""The ChatGPT plugin manifest (openai-plugin/plugin.json) against OpenAI's published limits."""
+"""The ChatGPT plugin manifest (codex-plugin/.codex-plugin/plugin.json) against OpenAI's published limits."""
 
 import json
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PLUGIN = ROOT / "openai-plugin"
-MANIFEST = json.loads((PLUGIN / "plugin.json").read_text())
+PLUGIN = ROOT / "codex-plugin"
+MANIFEST = json.loads((PLUGIN / ".codex-plugin" / "plugin.json").read_text())
 OPENAI = MANIFEST["extensions"]["com.openai"]
-INTERFACE = OPENAI["interface"]
+INTERFACE = MANIFEST["interface"]
 README_TOOLS = set(re.findall(r"^- \*\*(falpha_[a-z_]+)\*\*", (ROOT / "README.md").read_text(), re.M))
 
 
@@ -17,6 +17,9 @@ def test_required_fields_and_limits():
     assert re.fullmatch(r"[a-z0-9-]{1,64}", MANIFEST["name"])
     assert re.fullmatch(r"\d+\.\d+\.\d+", MANIFEST["version"])
     assert 0 < len(MANIFEST["author"]["name"]) <= 120
+    for key in ("displayName", "shortDescription", "longDescription", "developerName", "category", "capabilities"):
+        assert INTERFACE[key], key
+    assert MANIFEST["skills"] == "./skills/" and MANIFEST["mcpServers"] == "./.mcp.json"
     assert len(INTERFACE["displayName"]) <= 30
     assert len(INTERFACE["shortDescription"]) <= 30
     assert len(INTERFACE["longDescription"]) <= 4000
@@ -53,6 +56,6 @@ def test_no_purchase_or_advice_wording_in_the_listing():
 
 
 def test_mcp_config_points_at_the_hosted_server():
-    servers = json.loads((PLUGIN / "mcp.json").read_text())["mcpServers"]
+    servers = json.loads((PLUGIN / ".mcp.json").read_text())["mcpServers"]
     assert list(servers) == ["falpha"]
     assert servers["falpha"]["url"] == "https://agent.falpha.ai/mcp"

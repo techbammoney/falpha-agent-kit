@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
-# Build the ChatGPT plugin upload: openai-plugin/ (manifest, MCP config, assets) plus the same
+# Build the ChatGPT plugin upload: codex-plugin/ (.codex-plugin/plugin.json, .mcp.json, assets) plus the same
 # skills the Claude plugin ships (plugin/skills), so one set of skills serves both directories.
 #
-#   scripts/build-openai-plugin.sh      # writes dist/falpha-openai-plugin.zip
+#   scripts/build-codex-plugin.sh      # writes dist/falpha-codex-plugin.zip
 set -euo pipefail
 cd "$(dirname "$0")/.."
-out=dist/falpha-openai-plugin.zip
+out=dist/falpha-codex-plugin.zip
 stage=$(mktemp -d)
 trap 'rm -rf "$stage"' EXIT
-cp openai-plugin/plugin.json openai-plugin/mcp.json "$stage/"
-cp -R openai-plugin/assets "$stage/assets"
+mkdir "$stage/.codex-plugin"
+cp codex-plugin/.codex-plugin/plugin.json "$stage/.codex-plugin/"
+cp codex-plugin/.mcp.json "$stage/"
+cp -R codex-plugin/assets "$stage/assets"
 cp -R plugin/skills "$stage/skills"
 mkdir -p dist
 rm -f "$out"
